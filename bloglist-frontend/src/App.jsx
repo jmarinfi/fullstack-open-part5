@@ -4,6 +4,8 @@ import Notification from "./components/Notification.jsx"
 import BlogForm from "./components/BlogForm.jsx"
 import blogService from './services/blogs'
 import loginService from './services/login'
+import LoginForm from "./components/LoginForm.jsx";
+import Togglable from "./components/Togglable.jsx";
 
 const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
@@ -66,39 +68,28 @@ const App = () => {
       })
   }
 
-  const loginForm = () => (
-    <div>
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({target}) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({target}) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
-      </form>
-      <br/>
-    </div>
-  )
+  const loginForm = () => {
+    return (
+      <Togglable buttonLabel='login'>
+        <LoginForm
+          username={username}
+          password={password}
+          handleUsernameChange={({target}) => setUsername(target.value)}
+          handlePasswordChange={({target}) => setPassword(target.value)}
+          handleSubmit={handleLogin}
+        />
+      </Togglable>
+    )
+  }
 
   const blogsList = () => (
     <div>
       <p>{user.name} logged in
         <button type={"button"} onClick={handleLogout}>logout</button>
       </p>
-      <BlogForm addBlog={addBlog}/>
+      <Togglable buttonLabel={'new blog'}>
+        <BlogForm addBlog={addBlog}/>
+      </Togglable>
       <br/>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog}/>
