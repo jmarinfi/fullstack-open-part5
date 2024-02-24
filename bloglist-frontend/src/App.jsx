@@ -1,11 +1,11 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
-import Notification from "./components/Notification.jsx"
-import BlogForm from "./components/BlogForm.jsx"
+import Notification from './components/Notification.jsx'
+import BlogForm from './components/BlogForm.jsx'
 import blogService from './services/blogs'
 import loginService from './services/login'
-import LoginForm from "./components/LoginForm.jsx";
-import Togglable from "./components/Togglable.jsx";
+import LoginForm from './components/LoginForm.jsx'
+import Togglable from './components/Togglable.jsx'
 
 const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
@@ -32,7 +32,7 @@ const App = () => {
   const handleLogin = (event) => {
     event.preventDefault()
 
-    loginService.login({username, password})
+    loginService.login({ username, password })
       .then(user => {
         window.localStorage.setItem(
           'loggedBlogappUser', JSON.stringify(user)
@@ -103,7 +103,7 @@ const App = () => {
         blogService.getAll()
           .then(allBlogs => {
             setBlogs(allBlogs)
-            setSuccessMessage(`blog removed`)
+            setSuccessMessage('blog removed')
             setTimeout(() => {
               setSuccessMessage(null)
             }, 5000)
@@ -123,8 +123,8 @@ const App = () => {
         <LoginForm
           username={username}
           password={password}
-          handleUsernameChange={({target}) => setUsername(target.value)}
-          handlePasswordChange={({target}) => setPassword(target.value)}
+          handleUsernameChange={({ target }) => setUsername(target.value)}
+          handlePasswordChange={({ target }) => setPassword(target.value)}
           handleSubmit={handleLogin}
         />
       </Togglable>
@@ -134,7 +134,7 @@ const App = () => {
   const blogsList = () => (
     <div>
       <p>{user.name} logged in
-        <button type={"button"} onClick={handleLogout}>logout</button>
+        <button type={'button'} onClick={handleLogout}>logout</button>
       </p>
       <Togglable buttonLabel={'new blog'}>
         <BlogForm addBlog={addBlog}/>

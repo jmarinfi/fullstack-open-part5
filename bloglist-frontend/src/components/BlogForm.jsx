@@ -1,6 +1,6 @@
-import {useState} from "react"
+import { useState } from 'react'
 
-const BlogForm = ({addBlog}) => {
+const BlogForm = ({ addBlog }) => {
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
@@ -28,7 +28,7 @@ const BlogForm = ({addBlog}) => {
             type="text"
             value={newTitle}
             name="Title"
-            onChange={({target}) => setNewTitle(target.value)}
+            onChange={({ target }) => setNewTitle(target.value)}
           />
         </div>
         <div>
@@ -37,7 +37,7 @@ const BlogForm = ({addBlog}) => {
             type="text"
             value={newAuthor}
             name="Author"
-            onChange={({target}) => setNewAuthor(target.value)}
+            onChange={({ target }) => setNewAuthor(target.value)}
           />
         </div>
         <div>
@@ -46,7 +46,7 @@ const BlogForm = ({addBlog}) => {
             type="text"
             value={newUrl}
             name="Url"
-            onChange={({target}) => setNewUrl(target.value)}
+            onChange={({ target }) => setNewUrl(target.value)}
           />
         </div>
         <button type="submit">create</button>
