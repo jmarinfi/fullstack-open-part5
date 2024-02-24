@@ -22,4 +22,8 @@ const create = newObject => {
   return request.then(response => response.data)
 }
 
+const getOne = id => {
+
+}
+
 export default { getAll, create, setToken }

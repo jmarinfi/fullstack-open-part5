@@ -60,11 +60,20 @@ const App = () => {
     blogService
       .create(blogObject)
       .then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
-        setSuccessMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
-        setTimeout(() => {
-          setSuccessMessage(null)
-        }, 5000)
+        blogService.getAll()
+          .then(allBlogs => {
+            setBlogs(allBlogs)
+            setSuccessMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 5000)
+          })
+          .catch(error => {
+            setErrorMessage(error.response.data.error)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+          })
       })
   }
 
