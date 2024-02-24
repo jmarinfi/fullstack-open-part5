@@ -77,6 +77,26 @@ const App = () => {
       })
   }
 
+  const updateBlog = (id, blogObject) => {
+    blogService.update(id, blogObject)
+      .then(returnedBlog => {
+        blogService.getAll()
+          .then(allBlogs => {
+            setBlogs(allBlogs)
+            setSuccessMessage(`blog ${returnedBlog.title} updated`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 5000)
+          })
+      })
+      .catch(error => {
+        setErrorMessage(error.response.data.error)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      })
+  }
+
   const loginForm = () => {
     return (
       <Togglable buttonLabel='login'>
@@ -101,7 +121,7 @@ const App = () => {
       </Togglable>
       <br/>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog}/>
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
       )}
     </div>
   )
