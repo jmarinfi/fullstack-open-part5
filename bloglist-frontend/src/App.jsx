@@ -97,6 +97,26 @@ const App = () => {
       })
   }
 
+  const removeBlog = (id) => {
+    blogService.remove(id)
+      .then(() => {
+        blogService.getAll()
+          .then(allBlogs => {
+            setBlogs(allBlogs)
+            setSuccessMessage(`blog removed`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 5000)
+          })
+      })
+      .catch(error => {
+        setErrorMessage(error.response.data.error)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      })
+  }
+
   const loginForm = () => {
     return (
       <Togglable buttonLabel='login'>
@@ -123,7 +143,7 @@ const App = () => {
       {blogs.sort((a, b) => {
         return b.likes - a.likes
       }).map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlog={removeBlog} />
       )}
     </div>
   )
