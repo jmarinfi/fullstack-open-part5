@@ -53,4 +53,24 @@ describe('<Blog />', () => {
     const extraInfo = container.querySelector('.blog-extra-info')
     expect(extraInfo).not.toHaveStyle('display: none')
   })
+
+  test('clicking the like button twice calls event handler twice', async () => {
+    const { container } = render(
+      <Blog
+        blog={blog}
+        updateBlog={mockUpdateBlog}
+        removeBlog={mockRemoveBlog}
+      />
+    )
+
+    const user = userEvent.setup()
+    const viewButton = screen.getByText('view')
+    await user.click(viewButton)
+
+    const likeButton = screen.getByText('like')
+    await user.click(likeButton)
+    await user.click(likeButton)
+
+    expect(mockUpdateBlog.mock.calls).toHaveLength(2)
+  })
 })
