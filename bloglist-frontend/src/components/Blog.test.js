@@ -1,6 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
 describe('<Blog />', () => {
@@ -34,5 +35,22 @@ describe('<Blog />', () => {
 
     const extraInfo = container.querySelector('.blog-extra-info')
     expect(extraInfo).toHaveStyle('display: none')
+  })
+
+  test('renders url and likes when the view button is clicked', async () => {
+    const { container } = render(
+      <Blog
+        blog={blog}
+        updateBlog={mockUpdateBlog}
+        removeBlog={mockRemoveBlog}
+      />
+    )
+
+    const user = userEvent.setup()
+    const viewButton = screen.getByText('view')
+    await user.click(viewButton)
+
+    const extraInfo = container.querySelector('.blog-extra-info')
+    expect(extraInfo).not.toHaveStyle('display: none')
   })
 })
